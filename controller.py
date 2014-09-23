@@ -2,7 +2,7 @@ import web
 import json
 from model import ArticleModel
 from model import Session
-import datetime, time
+import datetime
 
 class ArticleController(object):
     def GET(self, id = None):

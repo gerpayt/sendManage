@@ -36,7 +36,6 @@ class ArticleModel(Base):
         return json.dumps({'id': self.id, 'code': self.code, 'title': self.title, 'posttime': time.strftime('%Y-%m-%d', self.posttime.timetuple()), 'remark': self.remark})
 
 
-#users_table = Article.__table__
 metadata = Base.metadata
 
 if __name__ == "__main__":
