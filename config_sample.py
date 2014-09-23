@@ -1,10 +1,11 @@
 # coding: utf-8
+import os
 
 DEBUG = False
 
 PASSWORD = ""
 
-DBFILE = "database.db"
+DBFILE = os.path.join(os.path.dirname(__file__), "database.db")
 
 NOTICE_PERIOD = 90
 NOTICE_MAIL = "gerpayt@qq.com"
