@@ -5,7 +5,9 @@ from sqlalchemy import create_engine
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.orm import sessionmaker
 
-engine = create_engine('sqlite:///database.db', connect_args={'check_same_thread': False}, echo=True)
+import config
+
+engine = create_engine('sqlite:///' + config.DBFILE, connect_args={'check_same_thread': False}, echo=config.DEBUG)
 
 from sqlalchemy.ext.declarative import declarative_base
 
