@@ -1,4 +1,4 @@
-App = angular.module('App', ['ngResource', 'datePicker']);
+App = angular.module('App', ['ngResource']);
 
 App.factory('ArticleServices', ['$resource', function($resource){
   return $resource('article', {}, {
@@ -13,6 +13,12 @@ App.factory('ArticleServices', ['$resource', function($resource){
     delete: {method:'DELETE', param: {id: '@id'}}
   });
 }]);
+
+App.filter('timeBefore', function(){
+  return function(posttime){
+    return Math.floor((Date.now() - Date.parse(posttime)) / 86400000) ;
+  }
+});
 
 App.controller('ArticleCtrl', ['$scope', 'ArticleServices', function($scope, Article) {
   $scope.articleList = Article.query();
@@ -48,7 +54,7 @@ App.controller('ArticleCtrl', ['$scope', 'ArticleServices', function($scope, Art
 
   $scope.remove = function() {
     var article_id = $scope.article_id;
-    Article.remove({id: article_id}, function(article) {
+    Article.remove({id: article_id}, function() {
       $scope.articleList = Article.query();
       $scope.orderProp = 'code';
       $('#deleteModal').modal('hide');
@@ -56,14 +62,13 @@ App.controller('ArticleCtrl', ['$scope', 'ArticleServices', function($scope, Art
   };
 
   $scope.submit = function() {
-    var posttime = $('#DatePicker').val();
     var article = {
       code: $scope.article_code,
       title: $scope.article_title,
-      posttime: posttime,
+      posttime: $scope.article_posttime,
       remark: $scope.article_remark
     };
-    Article.update({id: $scope.article_id}, article, function(item) {
+    Article.update({id: $scope.article_id}, article, function() {
       $scope.articleList = Article.query();
       $scope.orderProp = 'code';
       $('#editModal').modal('hide');

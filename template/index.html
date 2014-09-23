@@ -7,7 +7,7 @@
     <title>投稿管理系统</title>
 
     <link href="static/bootstrap.min.css" rel="stylesheet">
-    <link href="static/datePicker.min.css" rel="stylesheet">
+    <link href="static/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -36,7 +36,7 @@
             <th>作品编号</th><th>作品名称</th><th>完成日期</th><th>距今时间</th><th>作品备注</th><th width="100">操作</th>
           </tr>
           <tr ng-repeat="article in articleList">
-            <td>{{article.code}}</td><td>《{{article.title}}》</td><td>{{article.posttime}}</td><td>{{article.posttime}}</td><td>{{article.remark}}</td>
+            <td>{{article.code}}</td><td>《{{article.title}}》</td><td>{{article.posttime}}</td><td>{{article.posttime|timeBefore}}天</td><td>{{article.remark}}</td>
             <td>
               <button class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editModal" ng-click="edit(article)">编辑</button>
               <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal" ng-click="removeAlert(article)">删除</button>
@@ -70,7 +70,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">完成日期</label>
             <div class="col-sm-4">
-              <input class="form-control" id="DatePicker" type="text" min-view="date" max-view="date" view="date" required date-time ng-model="article_posttime">
+              <input id="DatePicker" class="form-control form_date" size="16" type="text" value="" readonly="" ng-model="article_posttime">
             </div>
           </div>
           <div class="form-group">
@@ -117,9 +117,22 @@
     <script src="static/bootstrap.min.js"></script>
     <script src="static/angular.min.js"></script>
     <script src="static/angular-resource.min.js"></script>
-    <script src="static/datePicker.js"></script>
-    <script src="static/datePickerUtils.js"></script>
-    <script src="static/input.js"></script>
+    <script src="static/bootstrap-datetimepicker.min.js"></script>
+    <script src="static/bootstrap-datetimepicker.zh-CN.js"></script>
     <script src="static/angular-app.js"></script>
+    <script>
+      jQuery('.form_date').datetimepicker({
+        language:  'zh-CN',
+        format: 'yyyy-mm-dd',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 1
+      });
+    </script>
+
   </body>
 </html>
