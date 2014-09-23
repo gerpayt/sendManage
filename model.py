@@ -17,8 +17,9 @@ Session = SessionMaker()
 
 class ArticleModel(Base):
     __tablename__ = 'article'
+    __table_args__ = {'sqlite_autoincrement': True}
 
-    id = Column(Integer, primary_key=True, sqlite_autoincrement=True)
+    id = Column(Integer, primary_key=True)
     code = Column(String)
     title = Column(String)
     posttime = Column(DateTime)
