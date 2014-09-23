@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>投稿管理系统</title>
+
+    <link href="static/bootstrap.min.css" rel="stylesheet">
+    <link href="static/datePicker.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body ng-app="App">
+    <div class="container" ng-controller="ArticleCtrl">
+
+      <h1>投稿管理系统</h1>
+      <div class="row">
+        <div class="col-xs-10">
+          <p class="lead">一个方便管理多个稿件的投递时间的系统</p>
+        </div>
+        <div class="col-xs-2 text-right">
+          <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal" ng-click="create()">新建</button>
+        </div>
+      </div>
+
+        
+      <table class='table'>
+        <tbody>
+          <tr>
+            <th>作品编号</th><th>作品名称</th><th>完成日期</th><th>距今时间</th><th>作品备注</th><th width="100">操作</th>
+          </tr>
+          <tr ng-repeat="article in articleList">
+            <td>{{article.code}}</td><td>《{{article.title}}》</td><td>{{article.posttime}}</td><td>{{article.posttime}}</td><td>{{article.remark}}</td>
+            <td>
+              <button class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editModal" ng-click="edit(article)">编辑</button>
+              <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal" ng-click="removeAlert(article)">删除</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+<!-- Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="editModalLabel"><span ng-hide="article_id">新建</span><span ng-show="article_id">编辑</span>投稿信息</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">作品编号</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" placeholder="作品编号" required ng-model="article_code">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">作品名称</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" placeholder="作品名称" required ng-model="article_title">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">完成日期</label>
+            <div class="col-sm-4">
+              <input class="form-control" id="DatePicker" type="text" min-view="date" max-view="date" view="date" required date-time ng-model="article_posttime">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">作品备注</label>
+            <div class="col-sm-9">
+              <textarea class="form-control" rows="4" placeholder="作品备注" ng-model="article_remark"></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn" ng-class="{'btn-primary': article_id==0, 'btn-warning': article_id!=0}" ng-click="submit()"><span ng-hide="article_id">新建</span><span ng-show="article_id">编辑</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="deleteModalLabel">删除投稿信息</h4>
+      </div>
+      <div class="modal-body">
+        <p>作品编号： {{article_code}}</p>
+        <p>作品名称： {{article_title}}</p>
+        <p>发布时间： {{article_posttime}}</p>
+        <p>作品备注： {{article_remark}}</p>
+        <p>确定要删除这条信息吗？</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-danger" ng-click="remove()">删除</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    </div><!-- /.container -->
+
+    <script src="static/jquery.min.js"></script>
+    <script src="static/bootstrap.min.js"></script>
+    <script src="static/angular.min.js"></script>
+    <script src="static/angular-resource.min.js"></script>
+    <script src="static/datePicker.js"></script>
+    <script src="static/datePickerUtils.js"></script>
+    <script src="static/input.js"></script>
+    <script src="static/angular-app.js"></script>
+  </body>
+</html>
