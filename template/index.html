@@ -29,7 +29,7 @@
         </div>
       </div>
 
-      <table class='table'>
+      <table class='table' ng-show="articleList">
         <tbody>
           <tr>
             <th>作品编号</th><th>作品名称</th><th>完成日期</th><th>距今时间</th><th>作品备注</th>
@@ -52,6 +52,14 @@
           </tr>
         </tbody>
       </table>
+
+      <div ng-hide="articleList">
+        还没有作品，现在就
+          <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal" ng-click="create()">
+            <span class="glyphicon glyphicon-plus"></span> 新建
+          </button>
+        一个作品。
+      </div>
 
       <footer class="text-center">
         <hr />
