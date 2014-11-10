@@ -29,7 +29,7 @@
         </div>
       </div>
 
-      <table class='table' ng-show="articleList">
+      <table class='table' ng-show="articleList.length">
         <tbody>
           <tr>
             <th>作品编号</th><th>作品名称</th><th>完成日期</th><th>距今时间</th><th>作品备注</th>
@@ -53,7 +53,7 @@
         </tbody>
       </table>
 
-      <div ng-hide="articleList">
+      <div ng-hide="articleList.length">
         还没有作品，现在就
           <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal" ng-click="create()">
             <span class="glyphicon glyphicon-plus"></span> 新建
@@ -72,12 +72,12 @@
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
+    <form class="form-horizontal" role="form">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="modal-title" id="editModalLabel"><span ng-hide="article_id">新建</span><span ng-show="article_id">编辑</span>投稿信息</h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal" role="form">
           <div class="form-group">
             <label class="col-sm-2 control-label">作品编号</label>
             <div class="col-sm-4">
@@ -102,12 +102,12 @@
               <textarea class="form-control" rows="4" placeholder="作品备注" ng-model="article_remark"></textarea>
             </div>
           </div>
-        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
         <button type="button" class="btn" ng-class="{'btn-primary': article_id==0, 'btn-warning': article_id!=0}" ng-click="submit()"><span ng-hide="article_id">新建</span><span ng-show="article_id">编辑</span></button>
       </div>
+    </form>
     </div>
   </div>
 </div>
