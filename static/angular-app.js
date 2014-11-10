@@ -30,6 +30,7 @@ App.controller('ArticleCtrl', ['$scope', 'ArticleServices', function($scope, Art
     $scope.article_title = undefined;
     $scope.article_posttime = undefined;
     $scope.article_remark = undefined;
+    $scope.form.$setPristine();
   };
 
   $scope.edit = function(article) {
@@ -39,6 +40,7 @@ App.controller('ArticleCtrl', ['$scope', 'ArticleServices', function($scope, Art
       $scope.article_title = article.title;
       $scope.article_posttime = article.posttime;
       $scope.article_remark = article.remark;
+      $scope.form.$setPristine();
     });
   };
 
@@ -62,6 +64,10 @@ App.controller('ArticleCtrl', ['$scope', 'ArticleServices', function($scope, Art
   };
 
   $scope.submit = function() {
+    if (!$scope.form.$valid) {
+      $('form[name=form] input.ng-invalid').first().focus();
+      return false;
+    }
     var article = {
       code: $scope.article_code,
       title: $scope.article_title,
